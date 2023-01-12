@@ -26,6 +26,7 @@
 * WatchDatePicker
 * UserNotifications
 * Accessibility(VoiceOver)
+* Localizable
 
 
 ## Demo
