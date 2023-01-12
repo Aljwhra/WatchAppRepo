@@ -6,21 +6,105 @@
 //
 
 import SwiftUI
+import CoreData
+import UserNotifications
 
 struct ContentView: View {
+
+    let string = NSLocalizedString("Name?", comment: "")
+    
+    @Environment(\.managedObjectContext) private var viewContext
+    
+    
+    @FetchRequest(
+        entity: ReminderEntity.entity(),
+        sortDescriptors:[NSSortDescriptor(keyPath: \ReminderEntity.name, ascending: true)])
+    var items: FetchedResults<ReminderEntity>
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        NavigationView {
+           
+                VStack{
+                    
+                    Text("Reminders")
+                        .accessibilityLabel(Text("Reminders"))
+                    NavigationLink(destination: AddReminderView() ,label: {
+                        HStack{
+                            
+                            Image(systemName: "plus.circle.fill")
+                            
+                                .font(.title2)
+                                .frame(maxWidth: .infinity,maxHeight: 65 ,alignment: .center)
+                                .background(Color("lightGreen"))
+                                .cornerRadius(10)
+                                
+                                
+                            
+                        }
+                    }).buttonStyle(PlainButtonStyle())
+                        
+                    VStack{
+                        Text("List")
+                            .accessibilityLabel(Text("List"))
+                        List {
+                            ForEach(items) { item in
+                                NavigationLink {
+                                    
+                                    Text(item.name ?? "")
+                                    Text(item.date?.formatted() ?? "")
+
+//                                  .formatted(.timeDuration)
+//  Text(item.date ?? "")
+                                } label: {
+                                    
+                                    Text(item.name ?? "")
+//                                    Text(item.date?.formatted() ?? "")
+                                    
+                                }
+                            }.onDelete(perform: deleteItems )
+                           
+                        }
+                     
+                        
+                    }.listStyle(PlainListStyle())
+                    
+
+                }
+            
         }
-        .padding()
+        
+    }
+    
+
+    
+    private func deleteItems(offsets: IndexSet) {
+        withAnimation {
+            offsets.map { items[$0] }.forEach(viewContext.delete)
+
+            do {
+                try viewContext.save()
+            } catch {
+
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
+        }
     }
 }
 
+
+private let itemFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateStyle = .short
+    formatter.timeStyle = .medium
+    return formatter
+}()
+
+
+
+
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }
