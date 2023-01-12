@@ -19,14 +19,14 @@
 
 
 ## Technologies & Tools
-```
-SwiftUI
-CoreData
-WatchKit
-WatchDatePicker
-UserNotifications
-Accessibility(VoiceOver)
-```
+
+* SwiftUI
+* CoreData
+* WatchKit
+* WatchDatePicker
+* UserNotifications
+* Accessibility(VoiceOver)
+
 
 ## Demo
 
