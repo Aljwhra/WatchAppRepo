@@ -10,7 +10,7 @@
 
 
 ## SOLUTION CONCEPTS
-###### People tend to forget there daily meals
+###### A reminder for people who need to be reminded so that they don't forget there daily meals.
 
 
 ## APP STATEMENT
