@@ -49,7 +49,7 @@
 
 ## Challenge Summary✨
 
-<img width="476" alt="AppOverviewTemplate" src="https://user-images.githubusercontent.com/91431846/212068451-98e03975-b42f-47dc-8968-d61665712815.png">
+<img width="1098" alt="AppOverviewTemplate" src="https://user-images.githubusercontent.com/91431846/212069864-f3c2ed82-6518-44f9-85bd-5f6dd30684b0.png">
 
 
 
